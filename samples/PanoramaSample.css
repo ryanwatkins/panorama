@@ -1,20 +1,21 @@
 /* PanoramaSample.css */
 
 .rwatkins-panorama {
-  background-image: url("assets/PanoramaSample-background.png");
 }
 
 .title {
-  font-size: 4em;
-  color: white;
-  white-space: nowrap;
+  font-size: 6em;
+  margin-left: 20px;
 }
 
 .panel {
-  padding-top: 100px; /* give some margin at top so it doesnt overlap the title */
+  /* give some padding at top so it doesnt overlap the title */
+  padding: 160px 20px 20px 20px;
 
-  padding: 120px 20px 20px 20px;
-  font-size: 3em;
-  color: white;
   border: 1px solid #c0c0c0;
+}
+
+.panel div:first-child {
+  font-size: 3em;
+  padding-bottom: 20px;
 }

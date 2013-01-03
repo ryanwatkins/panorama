@@ -7,18 +7,21 @@ You can side swipe to slide thru the panels of the panorama, and it wraps around
 
 Based on the Panels/LeftRightArranger controls.
 
-Declare a "title" as the component to create for the title across the panorama.
+- "title" - define a component to create for the title across the panorama.
+- "margin" - the amount to 'peek' the next panel, typically ~10% of the viewport on WP.
+- "backgroundSrc" - path to the image to load for the background.  Can also just apply via CSS to ".rwatkins-panorama"
+- "titleParallax" - multiplier for the parallax effect on the title component
+- "backgroundParallax" - multiplier for the parallax effect on the title component
 
-Specify "margin" for the amount to 'peek' the next panel, typically ~10% of the viewport on WP.
 
 See example in "sample" directory.
 
 
 NOTES:
 
-- the title does not 'snap around' when you wrap the carousel, it just slides back
 - if there are only two panels, they do not slide correctly
-- if there are only three panels, the next panels is not always correctly 'peeked'
+- the title does not 'snap around' when you wrap around in the carousel, it just slides back into place
+- if there are only three panels, the peeling panel sometimes 'appears', rather than slides into place
 
 
 Tested platforms include: Chrome 24+, Safari 6.0.2+, Windows Phone 8.0

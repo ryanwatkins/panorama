@@ -48,13 +48,10 @@ enyo.kind({
   // HACK: use show/hide rather than set z-index
   start: function() {
     this.inherited(arguments);
-    var panels = this.container.getPanels();
 
+    var panels = this.container.getPanels();
     if (panels.length == 1) {
       return;
-    }
-    if (panels.length == 2) {
-      // TODO: special handling for hide/show
     }
 
     var s = this.container.fromIndex;
@@ -77,6 +74,14 @@ enyo.kind({
         }
       }
     }
+
+  },
+
+  finish: function() {
+    this.inherited(arguments);
+    enyo.forEach(this.getOrderedControls(this.container.toIndex), function(panel) {
+      panel.show();
+    });
   },
 
   flowArrangement: function() {
@@ -87,7 +92,6 @@ enyo.kind({
     }
 
     // determine panel position for setting title and background offset 
-
     var arrangement = this.container.arrangement;
     var left = arrangement[(arrangement.length - 2)].left - ((this.c$.length - 2) * this.box);
     var position = left / (this.c$.length * this.box);
