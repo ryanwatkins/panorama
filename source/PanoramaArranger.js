@@ -2,7 +2,15 @@
 
 enyo.kind({
   name: "rwatkins.PanoramaArranger",
-  kind: "enyo.LeftRightArranger", // requires enyo.layout.panels
+  kind: "enyo.Arranger", // requires enyo.layout.panels
+
+  axisSize: "width",
+  offAxisSize: "height",
+  axisPosition: "left",
+  constructor: function() {
+    this.inherited(arguments);
+    this.margin = this.container.margin != null ? this.container.margin : this.margin;
+  },
 
   // adjusted margin to just calc on right
   size: function() {
@@ -96,6 +104,27 @@ enyo.kind({
     var left = arrangement[(arrangement.length - 2)].left - ((this.c$.length - 2) * this.box);
     var position = left / (this.c$.length * this.box);
     this.container.moveHandler({ position: position });
+  },
+
+  calcArrangementDifference: function(inI0, inA0, inI1, inA1) {
+    if (this.container.getPanels().length==1) {
+      return 0;
+    }
+    var i = Math.abs(inI0 % this.c$.length);
+    return inA0[i][this.axisPosition] - inA1[i][this.axisPosition];
+  },
+
+  destroy: function() {
+    var c$ = this.container.getPanels();
+    for (var i=0, c; (c=c$[i]); i++) {
+      enyo.Arranger.positionControl(c, {left: null, top: null});
+      enyo.Arranger.opacifyControl(c, 1);
+      c.applyStyle("left", null);
+      c.applyStyle("top", null);
+      c.applyStyle("height", null);
+      c.applyStyle("width", null);
+    }
+    this.inherited(arguments);
   }
 
 });
