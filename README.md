@@ -5,7 +5,7 @@ Panorama - an Enyo 2.0 kind to roughly emulate the horizontal scrolling Panorama
 
 You can side swipe to slide thru the panels of the panorama, and it wraps around to first panel.  The title and background image are shifted as you scroll thru the panels creating the parallax effect.
 
-Based on the Panels/LeftRightArranger controls.
+Based on the Panels/Arranger controls.
 
 - "title" - define a component to create for the title across the panorama.
 - "margin" - the amount to 'peek' the next panel, typically ~10% of the viewport on WP.
@@ -13,16 +13,13 @@ Based on the Panels/LeftRightArranger controls.
 - "titleParallax" - multiplier for the parallax effect on the title component
 - "backgroundParallax" - multiplier for the parallax effect on the title component
 
-
 See example in "sample" directory.
-
 
 NOTES:
 
 - if there are only two panels, they do not slide correctly
 - the title does not 'snap around' when you wrap around in the carousel, it just slides back into place
 - if there are only three panels, the peeling panel sometimes 'appears', rather than slides into place
-
 
 Tested platforms include: Chrome 24+, Safari 6.0.2+, Windows Phone 8.0
 
