@@ -3,6 +3,7 @@
 enyo.kind({
   name: "PanoramaSample",
   kind: "rwatkins.Panorama",
+  classes: "enyo-unselectable",
 
   title: { classes: "title", content: "panorama" },
   margin: 80, // px margin

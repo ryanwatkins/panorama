@@ -1,4 +1,29 @@
-// Panorama.js
+/** 
+The _rwatkins.Panorama_ kind is designed to provide an
+enyo.Panels-like control with an Arranger that simualtes the Windows
+Phone 8 Panorama control.
+
+Any Enyo control may be placed inside an _rwatkins.Panorama_, but by
+convention we refer to each of these controls as a "panel." The active
+panel is the one in front, and the user can slide left or right to
+bring other panels into the viewport.  As the panels slide a parallax
+effect is used on the title and backgroundSrc to give a sense of depth
+to the screen.
+
+For more information, see http://www.ryanwatkins.net/software/panorama/
+*/
+
+/*
+ * Copyright © 2013 Ryan Watkins <ryan@ryanwatkins.net>
+ *
+ * Permission to use, copy, modify, distribute, and sell this software
+ * and its documentation for any purpose is hereby granted without
+ * fee, provided that the above copyright notice appear in all copies
+ * and that both that copyright notice and this permission notice
+ * appear in supporting documentation. No representations are made
+ * about the suitability of this software for any purpose. It is
+ * provided "as is" without express or implied warranty.
+ */
 
 // FIXME: breaks with 2 Panels
 
