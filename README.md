@@ -21,7 +21,7 @@ NOTES:
 - the title does not 'snap around' when you wrap around in the carousel, it just slides back into place
 - if there are only three panels, the peeling panel sometimes 'appears', rather than slides into place
 
-Tested platforms include: Chrome 24+, Safari 6.0.2+, Windows Phone 8.0
+Tested platforms include: Chrome 24+, Safari 6.0.2+, Firefox 17+, Windows Phone 8.0
 
 Copyright © 2013 Ryan Watkins <ryan@ryanwatkins.net>
 

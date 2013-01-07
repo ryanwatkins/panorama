@@ -118,7 +118,7 @@ enyo.kind({
   },
 
   calcArrangementDifference: function(inI0, inA0, inI1, inA1) {
-    if (this.container.getPanels().length==1) {
+    if (this.container.getPanels().length == 1) {
       return 0;
     }
     var i = Math.abs(inI0 % this.c$.length);
@@ -134,6 +134,7 @@ enyo.kind({
       c.applyStyle("top", null);
       c.applyStyle("height", null);
       c.applyStyle("width", null);
+      c.show();
     }
     this.inherited(arguments);
   }
