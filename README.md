@@ -15,13 +15,20 @@ Based on the Panels/Arranger controls.
 
 See example in "sample" directory.
 
+
 NOTES:
 
 - if there are only two panels, they do not slide correctly
 - the title does not 'snap around' when you wrap around in the carousel, it just slides back into place
 - if there are only three panels, the peeling panel sometimes 'appears', rather than slides into place
 
-Tested platforms include: Chrome 24+, Safari 6.0.2+, Firefox 17+, Windows Phone 8.0
+
+website sample : http://www.ryanwatkins.net/software/panorama
+
+Requires the 'layout' Enyo library for Panel/Arranger components.
+
+Tested platforms include: Chrome 24+, Safari 6.0.2+, Firefox 17+, Windows Phone 8
+
 
 Copyright © 2013 Ryan Watkins <ryan@ryanwatkins.net>
 
