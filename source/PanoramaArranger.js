@@ -13,11 +13,8 @@
 
 enyo.kind({
   name: "rwatkins.PanoramaArranger",
-  kind: "enyo.Arranger", // requires enyo.layout.panels
+  kind: "enyo.Arranger",
 
-  axisSize: "width",
-  offAxisSize: "height",
-  axisPosition: "left",
   constructor: function() {
     this.inherited(arguments);
     this.margin = this.container.margin != null ? this.container.margin : this.margin;
@@ -25,80 +22,57 @@ enyo.kind({
 
   // adjusted margin to just calc on right
   size: function() {
-    var c$ = this.container.getPanels();
-    var port = this.containerBounds[this.axisSize];
-    var box = port - this.margin;  // only one margin here
+    this.box = this.containerBounds.width - this.margin;  // only one margin here, cache
 
-    this.box = box;  // cache
-
-    for (var i=0, b, c; (c=c$[i]); i++) {
-      b = {};
-      b[this.axisSize] = box;
-      b[this.offAxisSize] = "100%";
-      c.setBounds(b);
-    }
+    enyo.forEach(this.container.getPanels(), function(panel) {
+      var bounds = { width: this.box, height: "100%" };
+      panel.setBounds(bounds);
+    }, this);
   },
 
   // again, adjust margin to only calc on right
   // and set panels to only offset by 1
   arrange: function(inC, inIndex) {
-    var i,c,v,b;
+    var panels = this.container.getPanels();
 
-    if (this.container.getPanels().length == 1) {
-      b = {};
-      b[this.axisPosition] = 0; // no margin
-      this.arrangeControl(this.container.getPanels()[0], b);
+    if (panels.length == 1) {
+      this.arrangeControl(panels[0], { left: 0 });
       return;
     }
 
-    var o = 1; // only offset one when rotating panels, dont center
-    var c$ = this.getOrderedControls(Math.floor(inIndex)-o);
-    var box = this.containerBounds[this.axisSize] - this.margin;
+    var offset = 1; // only offset one when rotating panels, dont center
+    var orderedPanels = this.getOrderedControls(Math.floor(inIndex) - offset);
+    var width = this.containerBounds.width - this.margin;
 
-    var e = 0 - box * o; // no margin
-    for (i=0; (c=c$[i]); i++) {
-      b = {};
-      b[this.axisPosition] = e;
-      this.arrangeControl(c, b);
-      e += box;
-    }
+    var left = 0 - width * offset; // no margin
+
+    enyo.forEach(orderedPanels, function(panel, index) {
+      this.arrangeControl(panel, { left: left });
+      left += width;
+    }, this);
   },
 
-  // HACK: use show/hide rather than set z-index
   start: function() {
     this.inherited(arguments);
 
-    var panels = this.container.getPanels();
-    if (panels.length == 1) {
-      return;
+    if (this.c$.length == 1) { return; }
+
+    var fromIndex = this.container.fromIndex;
+    var toIndex = this.container.toIndex;
+    var orderedPanels = [];
+    // if to > from, hide panel before from
+    // if from > to, hide panel before to
+    if (toIndex > fromIndex) {
+      orderedPanels = this.getOrderedControls(fromIndex);
+    } else {
+      orderedPanels = this.getOrderedControls(toIndex);
     }
-
-    var s = this.container.fromIndex;
-    var f = this.container.toIndex;
-    var c$ = this.getOrderedControls(f);
-    var o = 1; // only offset one when rotating panels, dont center
-
-    for (var i=0, c; (c=c$[i]); i++) {
-      if (s > f){
-        if (i == (c$.length - o)){
-          c.hide();
-        } else {
-          c.show();
-        }
-      } else {
-        if (i == (c$.length-1 - o)){
-          c.hide();
-        } else {
-          c.show();
-        }
-      }
-    }
-
+    orderedPanels[orderedPanels.length - 1].hide();
   },
 
   finish: function() {
     this.inherited(arguments);
-    enyo.forEach(this.getOrderedControls(this.container.toIndex), function(panel) {
+    enyo.forEach(this.c$, function(panel) {
       panel.show();
     });
   },
@@ -106,9 +80,7 @@ enyo.kind({
   flowArrangement: function() {
     this.inherited(arguments);
 
-    if (this.container.getPanels().length == 1) {
-      return;
-    }
+    if (this.c$.length == 1) { return; }
 
     // determine panel position for setting title and background offset 
     var arrangement = this.container.arrangement;
@@ -118,24 +90,22 @@ enyo.kind({
   },
 
   calcArrangementDifference: function(inI0, inA0, inI1, inA1) {
-    if (this.container.getPanels().length == 1) {
-      return 0;
-    }
+    if (this.c$.length == 1) { return 0; }
     var i = Math.abs(inI0 % this.c$.length);
-    return inA0[i][this.axisPosition] - inA1[i][this.axisPosition];
+    return inA0[i].left - inA1[i].left;
   },
 
   destroy: function() {
-    var c$ = this.container.getPanels();
-    for (var i=0, c; (c=c$[i]); i++) {
-      enyo.Arranger.positionControl(c, {left: null, top: null});
-      enyo.Arranger.opacifyControl(c, 1);
-      c.applyStyle("left", null);
-      c.applyStyle("top", null);
-      c.applyStyle("height", null);
-      c.applyStyle("width", null);
-      c.show();
-    }
+    var panels = this.container.getPanels();
+    enyo.forEach(panels, function(panel, index) {
+      enyo.Arranger.positionControl(panel, { left: null, top: null });
+      enyo.Arranger.opacifyControl(panel, 1);
+      panel.applyStyle("left", null);
+      panel.applyStyle("top", null);
+      panel.applyStyle("height", null);
+      panel.applyStyle("width", null);
+      panel.show();
+    });
     this.inherited(arguments);
   }
 

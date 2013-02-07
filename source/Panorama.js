@@ -1,7 +1,7 @@
-/** 
+/**
 The _rwatkins.Panorama_ kind is designed to provide an
-enyo.Panels-like control with an Arranger that simualtes the Windows
-Phone 8 Panorama control.
+enyo.Panels-like control with an Arranger that simualtes the
+Windows Phone 8 Panorama control.
 
 Any Enyo control may be placed inside an _rwatkins.Panorama_, but by
 convention we refer to each of these controls as a "panel." The active
@@ -36,17 +36,15 @@ enyo.kind({
   wrap: true,
   narrowFit: false,
 
-  //* the amount of the next panel in the Panorama to peek - typically ~10%
-  margin: "0", // in px
-  //* multiplier for the parallax effect on title
-  titleParallax: 0.9,
-  //* multiplier for the parallax effect on title
-  backgroundParallax: 0.9,
-  // TODO: backgroundSrc - here rather than in css
-  backgroundSrc: null,
-
-  create: function() {
-    this.inherited(arguments);
+  published: {
+    //* the amount of the next panel in the Panorama to peek - typically ~10%
+    margin: "0", // in px
+    //* multiplier for the parallax effect on title
+    titleParallax: 0.9,
+    //* multiplier for the parallax effect on title
+    backgroundParallax: 0.9,
+    //* image for background to move as panels slide
+    backgroundSrc: null
   },
 
   rendered: function() {
@@ -92,10 +90,11 @@ enyo.kind({
 
   moveHandler: function(params) {
     if (!params || typeof(params.position) == 'undefined') { return; }
+
     // shift title
     if (this.$._title && this.titlewidth) {
-      var l = ((this.titlewidth * params.position) * this.titleParallax) + "px"; // lots of magic numbers
-      enyo.dom.transform(this.$._title, {translateX: l || null, translateY: null});
+      var l = ((this.titlewidth * params.position) * this.titleParallax) + "px";
+      enyo.dom.transform(this.$._title, { translateX: l || null, translateY: null });
     }
     // shift background position
     if (this.width !== undefined) {
