@@ -57,14 +57,14 @@ enyo.kind({
   resizeHandler: function() {
     this.inherited(arguments);
     this.width = this.getBounds().width;
-    if (this.$._title) {
-      this.titlewidth = this.$._title.getBounds().width;
+    if (this.$._panorama_title) {
+      this.titlewidth = this.$._panorama_title.getBounds().width;
     }
   },
 
   initComponents: function() {
-    this.title.name = "_title";
-    this.title.classes += " isis-panorama-title";
+    this.title.name = "_panorama_title";
+    this.title.classes += " rwatkins-panorama-title";
 
     this.createChrome([this.title]);
     this.inherited(arguments);
@@ -81,7 +81,7 @@ enyo.kind({
     var p = this.controlParent || this;
     var panels = [];
     enyo.forEach(p.children, function(child) {
-      if (child.name !== "_title") {
+      if (child.name !== "_panorama_title") {
         panels.push(child);
       }
     });
@@ -92,9 +92,9 @@ enyo.kind({
     if (!params || typeof(params.position) == 'undefined') { return; }
 
     // shift title
-    if (this.$._title && this.titlewidth) {
+    if (this.$._panorama_title && this.titlewidth) {
       var l = ((this.titlewidth * params.position) * this.titleParallax) + "px";
-      enyo.dom.transform(this.$._title, { translateX: l || null, translateY: null });
+      enyo.dom.transform(this.$._panorama_title, { translateX: l || null, translateY: null });
     }
     // shift background position
     if (this.width !== undefined) {
